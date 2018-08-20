@@ -1,1 +1,4 @@
-# Practice questions from LeetCode website
+## Solution of Leetcode problems including:
+
+* Bitwise operation
+* Array implementation
