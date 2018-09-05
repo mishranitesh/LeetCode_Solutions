@@ -2,3 +2,5 @@
 
 * Bitwise operation
 * Array implementation
+* Binary Tree
+* String
