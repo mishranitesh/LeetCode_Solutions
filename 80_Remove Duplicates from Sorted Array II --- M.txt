@@ -1,0 +1,74 @@
+Given a sorted array nums, remove the duplicates in-place such that duplicates appeared at most twice and return the new length.
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+It doesn't matter what values are set beyond the returned length.
+
+[1,1,1,2,2,3]           5       [1,1,2,2,3]
+[0,0,1,1,1,1,2,3,3]     7       [0,0,1,1,2,3,3]
+
+-------------------------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        
+        // Corner Case
+        if (nums.size() <= 2) return nums.size();
+        
+        /*
+         * Efficient Approach -- Using iterator and replace logic
+         */
+        auto replace_iter = nums.begin();
+        int count = 0;
+        
+        for (auto current_iter = nums.begin(); current_iter != nums.end(); ++current_iter) {
+            if (*current_iter != *replace_iter) {
+                count = 1;
+                *++replace_iter = *current_iter; // Increase iter and then replace value
+            } else {
+                if (++count == 2) {
+                    if (*current_iter == *replace_iter) {
+                        *++replace_iter = *current_iter; // Increase iter and then replace value
+                    } else {
+                        ++replace_iter;
+                    }
+                }
+            }
+        }
+        
+        return (replace_iter - nums.begin() + 1);
+        
+        
+        /*
+         * Another Efficient Approach -- Using index and swap logic
+         */
+        /*int replace_index = 2, dup_value = nums[1], counter = (nums[1] == nums[0]) ? 2 : 1;
+
+        // Traverse through array
+        for (int i = 2; i < nums.size(); ++i) {
+            // Duplicate elements
+            if (nums[i] == dup_value) {
+                if (++counter == 2) {
+                    if (nums[i] != nums[replace_index]) {
+                        int temp = nums[replace_index];
+                        nums[replace_index] = nums[i];
+                        nums[i] = temp;
+                    }
+                    ++replace_index;
+                }
+            } else {
+                
+                dup_value = nums[i];
+                counter = 1;
+                
+                int temp = nums[replace_index];
+                nums[replace_index] = nums[i];
+                nums[i] = temp;
+                ++replace_index;
+            }
+        }
+        
+        return (replace_index != -1) ? replace_index : nums.size();*/
+    }
+};
+
+-------------------------------------------------------------------------------------------------------------

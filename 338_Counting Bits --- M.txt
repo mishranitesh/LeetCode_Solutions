@@ -1,0 +1,43 @@
+Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1's in their binary representation and return them as an array.
+
+2           [0,1,1]
+5           [0,1,1,2,1,2]
+
+-------------------------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        
+        /*
+         * Efficient Approach -- Using bit-fiddling and looping through all nums
+         * Time Complexity -- O(n*sizeof(int))
+         */
+        std::vector<int> bits_vec;
+        int x = 0;
+        while (x <= num) {
+            // Insert one if x is power of 2
+            if (x & (x - 1) == 0) {
+                bits_vec.push_back(1);
+            } else {
+                bits_vec.push_back(count_bits(x));
+            }
+            ++x;
+        }
+        return bits_vec;
+    }
+    
+private:
+    int count_bits(int num) {
+        int result = 0;
+        // Using bit-fiddling
+        while (num) {
+            ++result;
+            num = num & (num - 1);
+        }
+        
+        return result;
+    }
+};
+
+-------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,91 @@
+Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+
+Input:
+[
+ [ 1, 2, 3 ],
+ [ 4, 5, 6 ],
+ [ 7, 8, 9 ]
+]
+Output: [1,2,3,6,9,8,7,4,5]
+
+Input:
+[
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [9,10,11,12]
+]
+Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+
+-------------------------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    
+    void spiralOrder_recursive(std::vector<vector<int>> &matrix, int r, int c, int direction, std::vector<int> &result_vec) {
+        
+        /* Logic to handle Base Case */
+        if (_ele_count == 0) {
+            return;
+        }
+        
+        /* Logic to handle Recursive Case */
+        // Change the direction of flow to maintain spiral structure
+        if (r < 0 || r >= matrix.size()
+                || c < 0 || c >= matrix[0].size()
+                || matrix[r][c] == INT_MIN) {
+            
+            direction = (direction + 1) % 4;
+            switch (direction) {
+                case 0:
+                    ++r; ++c; break;
+                case 1:
+                    ++r; --c; break;
+                case 2:
+                    --r; --c; break;
+                case 3:
+                    --r; ++c; break;
+            }
+        }
+        
+        // Push element in the result vector
+        result_vec.push_back(matrix[r][c]);
+        matrix[r][c] = INT_MIN;
+        --_ele_count;
+        
+        // Change row or column indexes according to direction
+        switch (direction) {
+            case 0:
+                ++c; break;
+            case 1:
+                ++r; break;
+            case 2:
+                --c; break;
+            case 3:
+                --r; break;
+        }
+        
+        // Recursive function call with updated parameters
+        spiralOrder_recursive(matrix, r, c, direction, result_vec);
+    }
+    
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        
+        // Corner Case
+        if (matrix.size() == 0) {
+            return std::vector<int>();
+        }
+        
+        std::vector<int> result_vec;
+        _ele_count = matrix.size() * matrix[0].size();
+        
+        // Recursive call for other cases
+        spiralOrder_recursive(matrix, 0, 0, 0, result_vec);
+        
+        return result_vec;
+    }
+    
+private:
+    std::size_t _ele_count;
+};
+
+-------------------------------------------------------------------------------------------------------------

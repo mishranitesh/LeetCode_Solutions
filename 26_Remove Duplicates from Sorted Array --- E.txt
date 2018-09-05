@@ -1,0 +1,69 @@
+Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+It doesn't matter what values are set beyond the returned length.
+
+nums = [1,1,2]					length = 2		[1,2]
+nums = [0,0,1,1,1,2,2,3,3,4]	length = 5		[0,1,2,3,4]
+
+-------------------------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        
+        // Corner Case
+        if (nums.size() <= 1) return nums.size();
+        
+        /*
+         * Efficient Approach -- Using iterator and replace logic
+         */
+        auto replace_iter = nums.begin();
+        
+        for (auto current_iter = nums.begin() + 1; current_iter != nums.end(); ++current_iter) {
+            if (*current_iter != *replace_iter) {
+                *++replace_iter = *current_iter; // Increase iter and then replace value
+            }
+        }
+        
+        return (replace_iter - nums.begin() + 1);
+        
+        /*
+         * Another Efficient Approach -- Using index and swap logic
+         */
+        /*int replace_index = -1, dup_value = nums[0];
+
+        for (int i = 1; i < nums.size(); ++i) {
+            if (nums[i] == dup_value) {
+                if (replace_index == -1) {
+                    replace_index = i;
+                }
+            } else {
+                dup_value = nums[i];
+                if (replace_index != -1) {
+                    // Swapping two numbers using XOR operator
+                    nums[replace_index] = nums[replace_index] ^ nums[i];
+                    nums[i] = nums[i] ^ nums[replace_index];
+                    nums[replace_index] = nums[replace_index] ^ nums[i];
+
+                    ++replace_index;
+                }
+            }
+        }
+        
+        return (replace_index != -1) ? replace_index : nums.size();*/
+        
+        /*
+         * Brute Force Approach --- Using vector::erase function
+         */
+        /*for (int i = 1; i < nums.size(); ++i) {
+            if (nums[i] == nums[i - 1]) {
+                nums.erase(nums.begin() + i);
+                --i;
+            }
+        }
+        return nums.size();*/
+        
+    }
+};
+
+-------------------------------------------------------------------------------------------------------------

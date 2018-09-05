@@ -1,0 +1,59 @@
+Count the number of prime numbers less than a non-negative number, n.
+
+Input: 10		Output: 4		There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
+
+-------------------------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    int countPrimes(int n) {
+        
+        // Corner case - 1 is neither prime nor composite
+        if (n <= 2) return 0;
+        if (n == 3) return 1; // 2 is prime
+        
+        /*
+         * Efficient Approach -- Sifting (Sieve) method
+         * Time Complexity -- O(nloglogn)
+         */
+        int count_prime = 0;
+        std::vector<bool> prime_list(n, true);
+        
+        prime_list[0] = prime_list[1] = false;
+        
+        for (int num = 2; num < n; ++num) {
+            if (prime_list[num]) {
+                ++count_prime;
+                
+                // Mark multiple of num as false
+                for (int i = 2*num; i < n; i += num) {
+                    prime_list[i] = false;
+                }
+            }
+        }
+        
+        return count_prime;
+        
+        /*
+         * Brute Force Approach -- Trial-Division method
+         * Time Complexity -- O(n * sqrt(n)) = O(n ^ 3/2)
+         */
+        /*int count_prime = 1; // 2 is prime number
+        for (int num = 3; num < n; ++num) {
+            // Divide num by numbers starting from 2 to sqrt(num)
+            int num_sqrt = std::floor(std::sqrt(num)) + 1, flag = 0;
+            for (int j = 2; j < num_sqrt; ++j) {
+                if (num % j == 0) {
+                    flag = 1;
+                    break;
+                }
+            }
+            // Increment count if num is not divisible by any other number than 1 or num
+            if (flag == 0) ++count_prime;
+        }
+        return count_prime;*/
+        
+    }
+};
+
+-------------------------------------------------------------------------------------------------------------

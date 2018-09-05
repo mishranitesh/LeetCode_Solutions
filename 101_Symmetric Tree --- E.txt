@@ -1,0 +1,88 @@
+Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+
+For example, this binary tree [1,2,2,3,4,4,3] is symmetric:
+
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+
+But the following [1,2,2,null,3,null,3] is not:
+    1
+   / \
+  2   2
+   \   \
+   3    3
+
+[1,2,2,3,4,4,3,5,6,7,8,8,7,6,5] --> Symmetric
+[4,-57,-57,null,67,67,null,null,-97,-97] ---> TRUE
+
+
+-------------------------------------------------------------------------------------------------------------
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        
+        if (root == nullptr) return true;
+        
+        std::queue<std::pair<TreeNode *, int>> queue_node;
+        int temp_level = 1;
+        std::vector<int> temp_vec;
+        
+        queue_node.push(std::make_pair(root, 1));
+        
+        while (!queue_node.empty()) {
+            auto temp_pair = queue_node.front();
+            
+            if (temp_level == temp_pair.second) {
+                //temp_str.append((temp_pair.first) ? std::to_string(temp_pair.first->val) : "N");
+                temp_vec.push_back((temp_pair.first) ? temp_pair.first->val : INT_MIN);
+            } else {
+                std::vector<int> rev_vec(temp_vec);
+                std::reverse(rev_vec.begin(), rev_vec.end());
+                
+                //std::cout << temp_vec << " " << rev_vec << std::endl;
+                
+                if (temp_vec != rev_vec) {
+                    return false;
+                }
+                temp_vec.clear();
+                
+                temp_level = temp_pair.second;
+                temp_vec.push_back((temp_pair.first) ? temp_pair.first->val : INT_MIN);
+            }
+            
+            if (temp_pair.first != nullptr) {
+                
+                if (temp_pair.first->left == nullptr) {
+                    queue_node.push(std::make_pair(nullptr, temp_pair.second + 1));
+                } else {
+                    queue_node.push(std::make_pair(temp_pair.first->left, temp_pair.second + 1));
+                }
+                
+                if (temp_pair.first->right == nullptr) {
+                    queue_node.push(std::make_pair(nullptr, temp_pair.second + 1));
+                } else {
+                    queue_node.push(std::make_pair(temp_pair.first->right, temp_pair.second + 1));
+                }
+            }
+            
+            queue_node.pop();
+        }
+        
+        return true;
+    }
+};
+
+-------------------------------------------------------------------------------------------------------------

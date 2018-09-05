@@ -1,0 +1,67 @@
+Given two integers L and R, find the count of numbers in the range [L, R] (inclusive) having a prime number of set bits in their binary representation.
+(Recall that the number of set bits an integer has is the number of 1s present when written in binary. For example, 21 written in binary is 10101 which has 3 set bits. Also, 1 is not a prime.)
+
+Input: L = 6, R = 10        Output: 4
+6 -> 110 (2 set bits, 2 is prime)       7 -> 111 (3 set bits, 3 is prime)
+9 -> 1001 (2 set bits , 2 is prime)     10->1010 (2 set bits , 2 is prime)
+
+Input: L = 10, R = 15       Output: 5
+10 -> 1010 (2 set bits, 2 is prime)     11 -> 1011 (3 set bits, 3 is prime)
+12 -> 1100 (2 set bits, 2 is prime)     13 -> 1101 (3 set bits, 3 is prime)
+14 -> 1110 (3 set bits, 3 is prime)     15 -> 1111 (4 set bits, 4 is not prime)
+
+-------------------------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    int countPrimeSetBits(int L, int R) {
+        
+        /*
+         * Efficient Approach -- Using lookup table and bitwise operator
+         */
+        std::vector<int> lookup_prime = {0, 0, 2, 3, 0, 5, 0, 7, 0, 0, 0, 11, 0, 13, 0, 0, 0, 17, 0, 19, 0,
+                                         0, 0, 23, 0, 0, 0, 0, 0, 29, 0, 31, 0};
+        int prime_cnt = 0;
+        
+        // Initializing lookup table to record prime numbers between 0 and 32 --- COSTLY
+        /*std::vector<int> lookup_prime(33, 0);
+        for (int i = 0; i <= 32; ++i) {
+            switch (i) {
+                case 2: lookup_prime[i] = i; break;
+                case 3: lookup_prime[i] = i; break;
+                case 5: lookup_prime[i] = i; break;
+                case 7: lookup_prime[i] = i; break;
+                case 11: lookup_prime[i] = i; break;
+                case 13: lookup_prime[i] = i; break;
+                case 17: lookup_prime[i] = i; break;
+                case 19: lookup_prime[i] = i; break;
+                case 23: lookup_prime[i] = i; break;
+                case 29: lookup_prime[i] = i; break;
+                case 31: lookup_prime[i] = i; break;
+            }
+        }*/
+        
+        // Loop through L and R
+        for (int num = L; num <= R; ++num) {
+            if (lookup_prime[count_set_bits(num)] != 0) {
+                ++prime_cnt;
+            }
+        }
+        
+        return prime_cnt;
+    }
+    
+private:
+    int count_set_bits(int num) {
+        int result = 0;
+        // Using bit-fiddling technique
+        while (num) {
+            ++result;
+            num = num & (num - 1);
+        }
+        
+        return result;
+    }
+};
+
+-------------------------------------------------------------------------------------------------------------

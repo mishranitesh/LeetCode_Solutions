@@ -1,0 +1,83 @@
+Given a positive integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
+
+Example:
+
+Input: 3
+Output:
+[
+ [ 1, 2, 3 ],
+ [ 8, 9, 4 ],
+ [ 7, 6, 5 ]
+]
+
+-------------------------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    void generateMatrix_recursive(int element, int r, int c, int direction, std::vector<std::vector<int>> &result_vec) {
+        
+        /* Logic to handle Base Case */
+        if (element > _ele_count) {
+            return;
+        }
+        
+        /* Logic to handle Recursive Case */
+        // Change the direction of flow to maintain spiral structure
+        if (r < 0 || r >= result_vec.size()
+                || c < 0 || c >= result_vec[0].size()
+                || result_vec[r][c] != INT_MIN) {
+            
+            direction = (direction + 1) % 4;
+            switch (direction) {
+                case 0:
+                    ++r; ++c; break;
+                case 1:
+                    ++r; --c; break;
+                case 2:
+                    --r; --c; break;
+                case 3:
+                    --r; ++c; break;
+            }
+        }
+        
+        // Push element in the result vector
+        result_vec[r][c] = element++;
+        
+        // Change row or column indexes according to direction
+        switch (direction) {
+            case 0:
+                ++c; break;
+            case 1:
+                ++r; break;
+            case 2:
+                --c; break;
+            case 3:
+                --r; break;
+        }
+        
+        // Recursive function call with updated parameters
+        generateMatrix_recursive(element, r, c, direction, result_vec);
+    }
+    
+    vector<vector<int>> generateMatrix(int n) {
+        
+        // Corner Case
+        if (n == 0) {
+            return std::vector<vector<int>>();
+        }
+        
+        _ele_count = n * n;
+        std::vector<std::vector<int>> result_vec(n, std::vector<int>(n, INT_MIN));
+        
+        // Recursive call for other cases
+        generateMatrix_recursive(1, 0, 0, 0, result_vec);
+        
+        return result_vec;
+    }
+    
+private:
+    std::size_t _ele_count;
+
+};
+
+-------------------------------------------------------------------------------------------------------------
