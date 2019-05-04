@@ -1,6 +1,10 @@
-## Solution of Leetcode problems including:
+## Solution of Leetcode Problems:
 
-* Bitwise operation
-* Array implementation
-* Binary Tree
-* String
+* EASY Category Problems:
+    * 
+
+* MEDIUM Category Problems:
+    * 
+
+* HARD Category Problems:
+    * 
