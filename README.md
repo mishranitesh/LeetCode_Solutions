@@ -1,18 +1,21 @@
 # LeetCode Solutions (Nitesh Mishra):
 ---
-+ **EASY Category Problems:**
++ **EASY Category (13 Problems):**
     - 1 ----> Two Sum
     - 7 ----> Reverse Integer
     - 9 ----> Palindrome Number
     - 14 ---> Longest Common Prefix
     - 20 ---> Valid Parentheses
     - 21 ---> Merge Two Sorted Lists
+    - 26 ---> Remove Duplicates from Sorted Array
+    - 27 ---> Remove Element
+    - 28 ---> Implement strStr()
     - 88 ---> Merge Sorted Array
     - 141 --> Linked List Cycle
     - 242 --> Valid Anagram
     - 283 --> Move Zeroes
 ---
-+ **MEDIUM Category Problems:**
++ **MEDIUM Category (15 Problems):**
     - 2 ----> Add Two Numbers
     - 3 ----> Longest Substring Without Repeating Characters
     - 5 ----> Longest Palindromic Substring
@@ -29,7 +32,7 @@
     - 240 --> Search a 2D Matrix II
     - 445 --> Add Two Numbers II
 ---
-+ **HARD Category Problems:**
++ **HARD Category (5 Problems):**
     - 4 ----> Median of Two Sorted Arrays
     - 23 ---> Merge k Sorted Lists
     - 25 ---> Reverse Nodes in k-Group
